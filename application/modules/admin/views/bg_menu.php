@@ -26,6 +26,7 @@
 								<li><a href="<?php echo base_url(); ?>admin/pemain"><i class="icon-eject"></i> Data Pemain</a></li>
 								<li><a href="<?php echo base_url(); ?>admin/kabupaten"><i class="icon-check"></i> Data Kabupaten</a></li>
 								<li><a href="<?php echo base_url(); ?>admin/wasit"><i class="icon-tag"></i> Data Wasit</a></li>
+								<li><a href="<?php echo base_url(); ?>admin/lapangan"><i class="icon-tasks"></i> Data Lapangan</a></li>
 								<li class="divider"></li>
 								<li><a href="<?php echo base_url(); ?>admin/data_buku_tamu"><i class="icon-comment"></i> Data Buku Tamu</a></li>
 								<li><a href="<?php echo base_url(); ?>admin/data_contact"><i class="icon-envelope"></i> Data Contact Us</a></li>

@@ -7,13 +7,13 @@
 <div id="head-sidebar">JADWAL PERTANDINGAN</div>
 <div id="content-sidebar">
 	<?php
-	$w = $this->db->select("id_jadwal, lapangan, tanggal, alamat_lapangan, a.nama as team1, b.nama as team2, dlmbg_wasit.nama as wasit")->join("dlmbg_team a", "a.id_team=x.id_team_1")->join("dlmbg_team b", "b.id_team=x.id_team_2")->join("dlmbg_wasit", "dlmbg_wasit.id_wasit=x.id_wasit")->order_by("id_jadwal","DESC")->get("dlmbg_jadwal x",2,0);
+	$w = $this->db->select("id_jadwal, k.nama_lapangan, tanggal, k.alamat_lapangan, a.nama as team1, b.nama as team2, dlmbg_wasit.nama as wasit")->join("dlmbg_team a", "a.id_team=x.id_team_1")->join("dlmbg_team b", "b.id_team=x.id_team_2")->join("dlmbg_wasit", "dlmbg_wasit.id_wasit=x.id_wasit")->join("dlmbg_lapangan k", "k.id_lapangan=x.lapangan")->get("dlmbg_jadwal x");
 
 	foreach($w->result() as $h)
 	{
 		echo "<table border=1 cellpadding=5 cellspacing=0 style='font-size:11px; width:100%;'><tr valign=top><td>".$h->team1."</td><td> vs </td><td>".$h->team2."</td></tr>
 				<tr valign=top><td>Tanggal</td><td>:</td><td>".$h->tanggal."</td></tr>
-				<tr valign=top><td>Lapangan</td><td>:</td><td>".$h->lapangan."</td></tr>
+				<tr valign=top><td>Lapangan</td><td>:</td><td>".$h->nama_lapangan."</td></tr>
 				<tr valign=top><td>Wasit</td><td>:</td><td>".$h->wasit."</td></tr>
 				<tr valign=top><td>Alamat</td><td>:</td><td>".$h->alamat_lapangan."</td></tr></table>";
 				echo '<div class="cleaner_h10"></div>';

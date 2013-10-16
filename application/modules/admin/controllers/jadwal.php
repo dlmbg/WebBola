@@ -37,6 +37,7 @@ class jadwal extends CI_Controller {
 
 			$d['team'] = $this->db->get("dlmbg_team");
 			$d['wasit'] = $this->db->get("dlmbg_wasit");
+			$d['lapangan'] = $this->db->get("dlmbg_lapangan");
 			
 			$d['id_param'] = "";
 			$d['tipe'] = "tambah";
@@ -68,6 +69,7 @@ class jadwal extends CI_Controller {
 			
 			$d['team'] = $this->db->get("dlmbg_team");
 			$d['wasit'] = $this->db->get("dlmbg_wasit");
+			$d['lapangan'] = $this->db->get("dlmbg_lapangan");
 			
 			$d['id_param'] = $get->id_jadwal;
 			$d['tipe'] = "edit";

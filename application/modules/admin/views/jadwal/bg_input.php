@@ -51,9 +51,23 @@
 				<input type="date" style="width:90%;" id="tanggal" name="tanggal" placeholder="tanggal" value="<?php echo $tanggal; ?>" />
 				<div class="cleaner_h10"></div>
 				
-				<label for="menu">lapangan</label>
+				<label for="menu">Lapangan</label>
 				<div class="cleaner_h5"></div>
-				<input type="search" style="width:90%;" id="lapangan" name="lapangan" placeholder="lapangan" value="<?php echo $lapangan; ?>" />
+				<select name="lapangan">
+				<?php
+					foreach($lapangan->result_array() as $k)
+					{
+						if($lapangan==$k['id_lapangan'])
+						{
+							echo "<option value='".$k['id_lapangan']."' selected>".$k['nama_lapangan']."</option>";
+						}
+						else
+						{
+							echo "<option value='".$k['id_lapangan']."'>".$k['nama_lapangan']."</option>";
+						}
+					}
+				?>
+				</select>
 				<div class="cleaner_h10"></div>
 				
 				<label for="menu">Wasit</label>
@@ -73,11 +87,6 @@
 					}
 				?>
 				</select>
-				<div class="cleaner_h10"></div>
-				
-				<label for="menu">Alamat Lapangan</label>
-				<div class="cleaner_h5"></div>
-				<input type="search" style="width:90%;" id="alamat_lapangan" name="alamat_lapangan" placeholder="alamat_lapangan" value="<?php echo $alamat_lapangan; ?>" />
 				<div class="cleaner_h10"></div>
 				
 				<input type="hidden" name="id_param" value="<?php echo $id_param; ?>" />

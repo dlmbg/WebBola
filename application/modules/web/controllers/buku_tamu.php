@@ -25,9 +25,9 @@ class buku_tamu extends CI_Controller {
 		$in['nama'] = $_POST['nama'];
 		$in['email'] = $_POST['email'];
 		$in['pesan'] = $_POST['pesan'];
-		$in['st'] = 0;
+		$in['st'] = 1;
 		$this->db->insert("dlmbg_buku_tamu",$in);
-		$this->session->set_flashdata("hasil","Data anda telah terkirim, dan akan kami moderisasi terlebih dahulu. Terima Kasih.");
+		$this->session->set_flashdata("hasil","Data anda telah terkirim. Terima Kasih.");
 		redirect("web/buku_tamu");
 	}
 }

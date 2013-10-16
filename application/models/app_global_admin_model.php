@@ -379,6 +379,51 @@ class app_global_admin_model extends CI_Model {
 		return $hasil;
 	}
 	 
+	public function generate_index_lapangan($limit,$offset,$filter=array())
+	{
+		$hasil="";
+		$tot_hal = $this->db->get("dlmbg_lapangan");
+
+		$config['base_url'] = base_url() . 'admin/lapangan/index/';
+		$config['total_rows'] = $tot_hal->num_rows();
+		$config['per_page'] = $limit;
+		$config['uri_segment'] = 4;
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['next_link'] = 'Next';
+		$config['prev_link'] = 'Prev';
+		$this->pagination->initialize($config);
+
+		$w = $this->db->get("dlmbg_lapangan",$limit,$offset);
+		
+		$hasil .= "<table class='table table-striped table-condensed'>
+					<thead>
+					<tr>
+					<th>No.</th>
+					<th>Nama Lapangan</th>
+					<th>Alamat Lapangan</th>
+					<th width='160'><a href='".base_url()."admin/lapangan/tambah' class='btn btn-small btn-success'><i class='icon-plus-sign'></i> Tambah Data</a></th>
+					</tr>
+					</thead>";
+		$i = $offset+1;
+		foreach($w->result() as $h)
+		{
+			$hasil .= "<tr>
+					<td>".$i."</td>
+					<td>".$h->nama_lapangan."</td>
+					<td>".$h->alamat_lapangan."</td>
+					<td>";
+			$hasil .= "<a href='".base_url()."admin/lapangan/edit/".$h->id_lapangan."' class='btn btn-small btn-inverse'><i class='icon-edit'></i> Edit</a> ";
+			$hasil .= "<a href='".base_url()."admin/lapangan/hapus/".$h->id_lapangan."' onClick=\"return confirm('Are you sure?');\" class='btn btn-small btn-danger'><i class='icon-trash'></i> Hapus</a></td>
+					</tr>";
+			$i++;
+		}
+		$hasil .= '</table>';
+		$hasil .= '<div class="cleaner_h20"></div>';
+		$hasil .= $this->pagination->create_links();
+		return $hasil;
+	}
+	 
 	public function generate_index_team($limit,$offset,$filter=array())
 	{
 		$hasil="";
@@ -721,7 +766,7 @@ class app_global_admin_model extends CI_Model {
 		$config['prev_link'] = 'Prev';
 		$this->pagination->initialize($config);
 
-		$w = $this->db->select("id_jadwal, lapangan, tanggal, alamat_lapangan, a.nama as team1, b.nama as team2, dlmbg_wasit.nama as wasit")->join("dlmbg_team a", "a.id_team=x.id_team_1")->join("dlmbg_team b", "b.id_team=x.id_team_2")->join("dlmbg_wasit", "dlmbg_wasit.id_wasit=x.id_wasit")->get("dlmbg_jadwal x",$limit,$offset);
+		$w = $this->db->select("id_jadwal, k.nama_lapangan, tanggal, k.alamat_lapangan, a.nama as team1, b.nama as team2, dlmbg_wasit.nama as wasit")->join("dlmbg_team a", "a.id_team=x.id_team_1")->join("dlmbg_team b", "b.id_team=x.id_team_2")->join("dlmbg_wasit", "dlmbg_wasit.id_wasit=x.id_wasit")->join("dlmbg_lapangan k", "k.id_lapangan=x.lapangan")->get("dlmbg_jadwal x",$limit,$offset);
 		
 		$hasil .= "<table class='table table-striped table-condensed'>
 					<thead>
@@ -744,7 +789,7 @@ class app_global_admin_model extends CI_Model {
 					<td>".$h->team1."</td>
 					<td>".$h->team2."</td>
 					<td>".$h->tanggal."</td>
-					<td>".$h->lapangan."</td>
+					<td>".$h->nama_lapangan."</td>
 					<td>".$h->wasit."</td>
 					<td>".$h->alamat_lapangan."</td>
 					<td>";

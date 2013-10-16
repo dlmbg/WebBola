@@ -371,7 +371,7 @@ class app_global_web extends CI_Model {
 		$config['prev_link'] = 'Prev';
 		$this->pagination->initialize($config);
 
-		$w = $this->db->select("id_jadwal, lapangan, tanggal, alamat_lapangan, a.nama as team1, b.nama as team2, dlmbg_wasit.nama as wasit")->join("dlmbg_team a", "a.id_team=x.id_team_1")->join("dlmbg_team b", "b.id_team=x.id_team_2")->join("dlmbg_wasit", "dlmbg_wasit.id_wasit=x.id_wasit")->get("dlmbg_jadwal x",$limit,$offset);
+		$w = $this->db->select("id_jadwal, k.nama_lapangan, tanggal, k.alamat_lapangan, a.nama as team1, b.nama as team2, dlmbg_wasit.nama as wasit")->join("dlmbg_team a", "a.id_team=x.id_team_1")->join("dlmbg_team b", "b.id_team=x.id_team_2")->join("dlmbg_wasit", "dlmbg_wasit.id_wasit=x.id_wasit")->join("dlmbg_lapangan k", "k.id_lapangan=x.lapangan")->get("dlmbg_jadwal x",$limit,$offset);
 		
 		$hasil .= "<table class='table table-striped table-condensed' cellpadding=5 border=1 cellspacing=0 width=100%>
 					<thead>
@@ -393,7 +393,7 @@ class app_global_web extends CI_Model {
 					<td>".$h->team1."</td>
 					<td>".$h->team2."</td>
 					<td>".$h->tanggal."</td>
-					<td>".$h->lapangan."</td>
+					<td>".$h->nama_lapangan."</td>
 					<td>".$h->wasit."</td>
 					<td>".$h->alamat_lapangan."</td></tr>";
 			$i++;
