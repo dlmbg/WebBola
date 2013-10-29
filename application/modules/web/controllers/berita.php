@@ -20,7 +20,7 @@ class berita extends CI_Controller {
 
 	function detail($id_param=0)
 	{
-		$get = $this->db->select("*")->join("dlmbg_kategori","dlmbg_kategori.id_kategori=dlmbg_berita.id_kategori")->get("dlmbg_berita",array("id_berita"=>$id_param))->row();
+		$get = $this->db->select("*")->join("dlmbg_kategori","dlmbg_kategori.id_kategori=dlmbg_berita.id_kategori")->get_where("dlmbg_berita",array("id_berita"=>$id_param))->row();
 		$d['kategori'] = $get->nama_kategori;
 		$d['judul'] = $get->judul;
 		$d['isi'] = $get->isi;

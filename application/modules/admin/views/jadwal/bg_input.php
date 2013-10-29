@@ -89,6 +89,35 @@
 				</select>
 				<div class="cleaner_h10"></div>
 				
+				<label for="menu">Team Pemenang</label>
+				<div class="cleaner_h5"></div>
+				<select name="id_team_menang">
+				<?php
+					foreach($team->result_array() as $k)
+					{
+						if($id_team_menang==$k['id_team'])
+						{
+							echo "<option value='".$k['id_team']."' selected>".$k['nama']."</option>";
+						}
+						else
+						{
+							echo "<option value='".$k['id_team']."'>".$k['nama']."</option>";
+						}
+					}
+				?>
+				</select>
+				<div class="cleaner_h10"></div>
+				
+				<label for="menu">Score Team 1</label>
+				<div class="cleaner_h5"></div>
+				<input type="text" style="width:90%;" id="score_team1" name="score_team1" placeholder="score_team1" value="<?php echo $score_team1; ?>" />
+				<div class="cleaner_h10"></div>
+				
+				<label for="menu">Score Team 2</label>
+				<div class="cleaner_h5"></div>
+				<input type="text" style="width:90%;" id="score_team2" name="score_team2" placeholder="score_team2" value="<?php echo $score_team2; ?>" />
+				<div class="cleaner_h10"></div>
+				
 				<input type="hidden" name="id_param" value="<?php echo $id_param; ?>" />
 				<input type="hidden" name="tipe" value="<?php echo $tipe; ?>" />
 				<div class="cleaner_h10"></div>

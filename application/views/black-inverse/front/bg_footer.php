@@ -6,7 +6,7 @@
 $get_atas = $this->db->get_where("dlmbg_menu");
 foreach($get_atas->result() as $ga)
 {
-	echo '<a href="'.base_url().'web/pages/'.$ga->url_route.'">'.$ga->menu.'</a> | ';
+	echo '<a href="'.base_url().'web/pages/'.$ga->id_menu.'">'.$ga->menu.'</a> | ';
 }
 ?>
 </div>

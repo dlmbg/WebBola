@@ -34,6 +34,9 @@ class jadwal extends CI_Controller {
 			$d['lapangan'] = "";
 			$d['id_wasit'] = "";
 			$d['alamat_lapangan'] = "";
+			$d['id_team_menang'] = "";
+			$d['score_team1'] = "";
+			$d['score_team2'] = "";
 
 			$d['team'] = $this->db->get("dlmbg_team");
 			$d['wasit'] = $this->db->get("dlmbg_wasit");
@@ -66,6 +69,9 @@ class jadwal extends CI_Controller {
 			$d['lapangan'] = $get->lapangan;
 			$d['id_wasit'] = $get->id_wasit;
 			$d['alamat_lapangan'] = $get->alamat_lapangan;
+			$d['id_team_menang'] = $get->id_team_menang;
+			$d['score_team1'] = $get->score_team1;
+			$d['score_team2'] = $get->score_team2;
 			
 			$d['team'] = $this->db->get("dlmbg_team");
 			$d['wasit'] = $this->db->get("dlmbg_wasit");
@@ -99,8 +105,33 @@ class jadwal extends CI_Controller {
 				$in['lapangan'] = $this->input->post("lapangan");
 				$in['id_wasit'] = $this->input->post("id_wasit");
 				$in['alamat_lapangan'] = $this->input->post("alamat_lapangan");
+				$in['id_team_menang'] = $this->input->post("id_team_menang");
+				$in['score_team1'] = $this->input->post("score_team1");
+				$in['score_team2'] = $this->input->post("score_team2");
 
 				$this->db->insert("dlmbg_jadwal",$in);
+
+				$tim_kalah = "";
+				//update nilai win
+				$this->db->query("update dlmbg_klasemen set win=win+1 where id_team='".$in['id_team_menang']."' ");
+
+				if($in['id_team_menang']==$in['id_team_1'])
+				{
+					$tim_kalah = $in['id_team_2'];
+				}
+				else
+				{
+					$tim_kalah = $in['id_team_1'];
+				}
+
+				//update nilai lose
+				$this->db->query("update dlmbg_klasemen set lose=lose+1 where id_team='".$tim_kalah."' ");
+
+				//update nilai team 1
+				$this->db->query("update dlmbg_klasemen set gol=gol+".$in['score_team1']." where id_team='".$in['id_team_1']."' ");
+
+				//update nilai team 2
+				$this->db->query("update dlmbg_klasemen set gol=gol+".$in['score_team2']." where id_team='".$in['id_team_2']."' ");
 			}
 			else if($tipe=="edit")
 			{
@@ -110,7 +141,32 @@ class jadwal extends CI_Controller {
 				$in['lapangan'] = $this->input->post("lapangan");
 				$in['id_wasit'] = $this->input->post("id_wasit");
 				$in['alamat_lapangan'] = $this->input->post("alamat_lapangan");
-					$this->db->update("dlmbg_jadwal",$in,$id);
+				$in['id_team_menang'] = $this->input->post("id_team_menang");
+				$in['score_team1'] = $this->input->post("score_team1");
+				$in['score_team2'] = $this->input->post("score_team2");
+				$this->db->update("dlmbg_jadwal",$in,$id);
+
+				$tim_kalah = "";
+				//update nilai win
+				$this->db->query("update dlmbg_klasemen set win=win+1 where id_team='".$in['id_team_menang']."' ");
+
+				if($in['id_team_menang']==$in['id_team_1'])
+				{
+					$tim_kalah = $in['id_team_2'];
+				}
+				else
+				{
+					$tim_kalah = $in['id_team_1'];
+				}
+
+				//update nilai lose
+				$this->db->query("update dlmbg_klasemen set lose=lose+1 where id_team='".$tim_kalah."' ");
+
+				//update nilai team 1
+				$this->db->query("update dlmbg_klasemen set gol=gol+".$in['score_team1']." where id_team='".$in['id_team_1']."' ");
+
+				//update nilai team 2
+				$this->db->query("update dlmbg_klasemen set gol=gol+".$in['score_team2']." where id_team='".$in['id_team_2']."' ");
 			}
 			
 			redirect("admin/jadwal");
